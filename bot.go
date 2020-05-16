@@ -101,7 +101,7 @@ func (bot *BotAPI) MakeRequest(endpoint string, params url.Values) (APIResponse,
 		return APIResponse{}, err
 	}
 	defer func() {
-		bot.Client.CloseIdleConnections()
+		//bot.Client.CloseIdleConnections()
 		err := resp.Body.Close()
 		log.Println(err)
 	}()
