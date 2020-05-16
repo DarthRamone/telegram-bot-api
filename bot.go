@@ -79,11 +79,15 @@ func (b *BotAPI) SetAPIEndpoint(apiEndpoint string) {
 func (bot *BotAPI) MakeRequest(endpoint string, params url.Values) (APIResponse, error) {
 	method := fmt.Sprintf(bot.apiEndpoint, bot.Token, endpoint)
 
+	log.Println("post form")
 	resp, err := bot.Client.PostForm(method, params)
 	if err != nil {
 		return APIResponse{}, err
 	}
-	defer resp.Body.Close()
+	defer func() {
+		err := resp.Body.Close()
+		log.Println(err)
+	}()
 	resp.Close = true
 
 	var apiResp APIResponse
