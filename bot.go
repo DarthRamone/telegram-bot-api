@@ -84,6 +84,7 @@ func (bot *BotAPI) MakeRequest(endpoint string, params url.Values) (APIResponse,
 		return APIResponse{}, err
 	}
 	defer resp.Body.Close()
+	resp.Close = true
 
 	var apiResp APIResponse
 	bytes, err := bot.decodeAPIResponse(resp.Body, &apiResp)
