@@ -79,6 +79,7 @@ func (b *BotAPI) SetAPIEndpoint(apiEndpoint string) {
 func (bot *BotAPI) MakeRequest(endpoint string, params url.Values) (APIResponse, error) {
 	method := fmt.Sprintf(bot.apiEndpoint, bot.Token, endpoint)
 
+	fmt.Printf("params: %s", params)
 	resp, err := bot.Client.PostForm(method, params)
 	if err != nil {
 		return APIResponse{}, err
