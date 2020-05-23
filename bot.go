@@ -68,6 +68,10 @@ func (bot *BotAPI) MakeRequest(endpoint string, params url.Values) (APIResponse,
 	if err != nil {
 		return APIResponse{}, err
 	}
+	resp.Close = true
+	defer func() {
+		bot.Client.CloseIdleConnections()
+	}()
 	defer resp.Body.Close()
 
 	var apiResp APIResponse
